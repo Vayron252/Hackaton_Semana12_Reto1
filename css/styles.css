@@ -1,0 +1,255 @@
+:root {
+    --colorPrincipal: #05B84E;
+    --colorSecundario: #0060AB;
+    --blanco: #FFFFFF;
+}
+
+/* Globales */
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+img {
+    max-width: 100%;
+    display: block;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Utilidades */
+.h-100 {
+    height: 100%;
+}
+.btn {
+    border: none;
+    outline: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    background-color: var(--blanco);
+    font-size: 2rem;
+    border-radius: .5rem;
+    color: var(--colorSecundario);
+}
+.ocultar {
+    display: none;
+}
+
+/* Contenido Principal */
+.contenido__principal {
+    background-color: var(--colorPrincipal);
+    width: 95%;
+    max-width: 90rem;
+    height: 60rem;
+    border: 5px solid var(--colorSecundario);
+    border-radius: 1rem;
+}
+
+/* Seccion LOGIN */
+.contenedor__login {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 100%;
+}
+.login__logo {
+    background-color: var(--blanco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login__logo img {
+    width: 90%;
+}
+.login__contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.login__datos {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.login__datos label {
+    font-size: 2rem;
+    color: var(--blanco);
+    font-weight: bold;
+}
+.login__datos input {
+    outline: none;
+    border: none;
+    height: 4rem;
+    font-size: 1.5rem;
+    padding: 0 2rem;
+    border-radius: .5rem;
+}
+.login__datos:last-of-type {
+    margin-top: 5rem;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Seccion MENU */
+.contenedor__menu {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+}
+.menu__cerrarsesion {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.menu__nombreusuario {
+    color: var(--blanco);
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    padding-left: 2rem;
+}
+.menu__opciones {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 2rem;
+}
+.opcion__menu {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+.opcion__menu--reverso {
+    flex-direction: row-reverse;
+    margin-left: 0;
+    margin-right: 1rem;
+}
+.opcion__menu button {
+    height: 9rem;
+    width: 9rem;
+    border-radius: 50%;
+    background-color: var(--blanco);
+    border: 2px solid var(--colorSecundario);
+    outline: none;
+    cursor: pointer;
+    z-index: 1;
+}
+.opcion__menu p {
+    background-color: var(--blanco);
+    height: 5rem;
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--colorSecundario);
+    margin-left: -1rem;
+    border-radius: .5rem;
+    border: 1px solid var(--colorSecundario);
+}
+.opcion__menu--reverso p {
+    margin-left: 0;
+    margin-right: -1rem;
+}
+.cerrar_sesion {
+    margin-right: 3rem;
+}
+
+/* Seccion CONSULTA SALDO */
+.contenedor__consultasaldo {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 6fr 1fr;
+}
+.conssaldo__contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+.conssaldo__rotulo {
+    font-size: 3rem;
+    color: var(--blanco);
+    font-weight: bold;
+}
+.conssaldo__contenedor {
+    background-color: var(--blanco);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.conssaldo_saldo {
+    font-size: 8rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border: 5px solid var(--colorPrincipal);
+    border-radius: .5rem;
+    color: var(--colorSecundario);
+}
+.conssaldo__regresar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.regresar-menu {
+    margin-right: 3rem;
+}
+
+/* Seccion DEPOSITO */
+.contenedor__deposito {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 6fr 1fr;
+}
+.deposito__contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+.deposito__accion {
+    display: flex;
+    gap: 2rem;
+}
+.deposito__ingreso {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.deposito__rotulo {
+    font-size: 2rem;
+    color: var(--blanco);
+}
+.deposito__monto {
+    outline: none;
+    border: none;
+    width: 25rem;
+    height: 4rem;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    border-radius: .5rem;
+}
+.deposito__saldo {
+    font-size: 3rem;
+    color: var(--colorSecundario);
+}
+.deposito__regresar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Seccion RETIRO */

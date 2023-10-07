@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Cajero Automático</title>
+</head>
+<body>
+    <main class="contenido__principal">
+        <section class="seccion__login h-100">
+            <div class="contenedor__login">
+                <div class="login__logo">
+                    <img src="./img/interbank_logo.png" alt="imagen logo">
+                </div>
+                <div class="login__contenido">
+                    <div class="login__datos">
+                        <label for="txtNroDNI">Ingrese su DNI:</label>
+                        <input type="text" id="txtNroDNI"  placeholder="Ingrese su DNI" autocomplete="off" autofocus>
+                    </div>
+                    <div class="login__datos">
+                        <label for="txtContrasenia">Ingrese su contraseña:</label>
+                        <input type="password" id="txtContrasenia" placeholder="Ingrese su contraseña" autocomplete="off">
+                    </div>
+                    <div class="login__datos">
+                        <button id="btnLogin" class="login__iniciarsesion btn">Ingresar <i class="fas fa-right-to-bracket"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="seccion__menu h-100 ocultar">
+            <div class="contenedor__menu">
+                <h2 class="menu__nombreusuario"></h2>
+                <div class="menu__opciones">
+                    <div class="opcion__menu">
+                        <button class="opcion__consultasaldo"></button>
+                        <p>Consultar Saldo</p>
+                    </div>
+                    <div class="opcion__menu opcion__menu--reverso">
+                        <button class="opcion__deposito"></button>
+                        <p>Depósito</p>
+                    </div>
+                    <div class="opcion__menu">
+                        <button class="opcion__retiro"></button>
+                        <p>Retiro</p>
+                    </div>
+                </div>
+                <div class="menu__cerrarsesion">
+                    <button class="cerrar_sesion btn" id="btnCerrarSesion">Salir <i class="fas fa-right-to-bracket"></i></button>
+                </div>
+            </div>
+        </section>
+        <section class="seccion__consultasaldo h-100 ocultar">
+            <div class="contenedor__consultasaldo">
+                <div class="conssaldo__contenido">
+                    <p class="conssaldo__rotulo">Su saldo actual a la fecha es:</p>
+                    <div class="conssaldo__contenedor">
+                        <p class="conssaldo_saldo">$300</p>
+                    </div>
+                </div>
+                <div class="conssaldo__regresar">
+                    <button class="regresar-menu btn" onclick="regresarMenu(this);"><i class="fas fa-chevron-left"></i> Regresar</button>
+                </div>
+            </div>
+        </section>
+        <section class="seccion__deposito h-100 ocultar">
+            <div class="contenedor__deposito">
+                <div class="deposito__contenido">
+                    <div class="deposito__accion">
+                        <div class="deposito__ingreso">
+                            <label for="txtMontoDeposito" class="deposito__rotulo">Ingrese monto a depositar:</label>
+                            <input type="number" id="txtMontoDeposito" placeholder="Ingrese monto" class="deposito__monto">
+                        </div>
+                        <button id="btnDepositar" class="deposito__boton btn">Depositar</button>
+                    </div>
+                    <h3 class="deposito__saldo"></h3>
+                </div>
+                <div class="deposito__regresar">
+                    <button class="regresar-menu btn" onclick="regresarMenu(this);"><i class="fas fa-chevron-left"></i> Regresar</button>
+                </div>
+            </div>
+        </section>
+        <section class="seccion__retiro ocultar">
+            <div class="opcion-retiro">
+                <label for="txtMontoRetiro">Ingrese monto a retirar:</label>
+                <input type="number" id="txtMontoRetiro" placeholder="Ingrese monto a retirar">
+                <button id="btnRetirar">Retirar</button>
+                <h3 class="muestra_saldo"></h3>
+                <button class="regresar-menu" onclick="regresarMenu(this);">Regresar</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>
