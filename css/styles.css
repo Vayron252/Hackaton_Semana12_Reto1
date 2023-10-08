@@ -2,6 +2,7 @@
     --colorPrincipal: #05B84E;
     --colorSecundario: #0060AB;
     --blanco: #FFFFFF;
+    --azulOscuro: #0f436b;
 }
 
 /* Globales */
@@ -40,6 +41,16 @@ body {
     border-radius: .5rem;
     color: var(--colorSecundario);
 }
+.mensaje {
+    background-color: var(--blanco);
+    padding: 1rem;
+    color: red;
+    border-radius: .5rem;
+    margin-top: 1rem;
+    text-align: center;
+    border: none;
+    width: 100%;
+}
 .ocultar {
     display: none;
 }
@@ -47,8 +58,8 @@ body {
 /* Contenido Principal */
 .contenido__principal {
     background-color: var(--colorPrincipal);
-    width: 95%;
-    max-width: 90rem;
+    width: 50%;
+    min-width: 90rem;
     height: 60rem;
     border: 5px solid var(--colorSecundario);
     border-radius: 1rem;
@@ -94,11 +105,16 @@ body {
     font-size: 1.5rem;
     padding: 0 2rem;
     border-radius: .5rem;
+    color: var(--azulOscuro);
 }
 .login__datos:last-of-type {
     margin-top: 5rem;
     flex-direction: row;
     justify-content: center;
+}
+.login__mensaje {
+    width: 90%;
+    font-size: 1.5rem;
 }
 
 /* Seccion MENU */
@@ -122,7 +138,8 @@ body {
 .menu__opciones {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    align-items: center;
+    grid-template-rows: repeat(3, 1fr);
+    /* align-items: center; */
     gap: 2rem;
 }
 .opcion__menu {
@@ -144,6 +161,9 @@ body {
     outline: none;
     cursor: pointer;
     z-index: 1;
+}
+.opcion__menu button:active {
+    background-color: var(--colorSecundario);
 }
 .opcion__menu p {
     background-color: var(--blanco);
@@ -171,7 +191,23 @@ body {
 .contenedor__consultasaldo {
     height: 100%;
     display: grid;
-    grid-template-rows: 6fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr;
+    overflow: hidden;
+}
+.conssaldo__titulo {
+    display: flex;
+    align-items: center;
+}
+.conssaldo__titulo p {
+    background-color: var(--blanco);
+    display: inline;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    color: var(--colorSecundario);
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    margin-left: -.5rem;
 }
 .conssaldo__contenido {
     display: flex;
@@ -196,7 +232,7 @@ body {
     padding: 1rem 2rem;
     border: 5px solid var(--colorPrincipal);
     border-radius: .5rem;
-    color: var(--colorSecundario);
+    color: var(--azulOscuro);
 }
 .conssaldo__regresar {
     display: flex;
@@ -211,7 +247,8 @@ body {
 .contenedor__deposito {
     height: 100%;
     display: grid;
-    grid-template-rows: 6fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr;
+    overflow: hidden;
 }
 .deposito__contenido {
     display: flex;
@@ -220,17 +257,33 @@ body {
     align-items: center;
     gap: 3rem;
 }
-.deposito__accion {
+.deposito__titulo {
     display: flex;
-    gap: 2rem;
+    align-items: center;
 }
-.deposito__ingreso {
+.deposito__titulo p {
+    background-color: var(--blanco);
+    display: inline;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    color: var(--colorSecundario);
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    margin-left: -.5rem;
+}
+.deposito__accion {
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
+.deposito__ingreso {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 .deposito__rotulo {
-    font-size: 2rem;
+    font-size: 3rem;
     color: var(--blanco);
 }
 .deposito__monto {
@@ -241,10 +294,15 @@ body {
     padding: 1rem 2rem;
     font-size: 2rem;
     border-radius: .5rem;
+    width: 100%;
+    color: var(--azulOscuro);
 }
 .deposito__saldo {
     font-size: 3rem;
     color: var(--colorSecundario);
+}
+.deposito__mensaje {
+    font-size: 2rem;
 }
 .deposito__regresar {
     display: flex;
@@ -253,3 +311,131 @@ body {
 }
 
 /* Seccion RETIRO */
+.contenedor__retiro {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    overflow: hidden;
+}
+.retiro__contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+.retiro__titulo {
+    display: flex;
+    align-items: center;
+}
+.retiro__titulo p {
+    background-color: var(--blanco);
+    display: inline;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    color: var(--colorSecundario);
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    margin-left: -.5rem;
+}
+.retiro__accion {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.retiro__egreso {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.retiro__rotulo {
+    font-size: 3rem;
+    color: var(--blanco);
+}
+.retiro__monto {
+    outline: none;
+    border: none;
+    width: 25rem;
+    height: 4rem;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    border-radius: .5rem;
+    width: 100%;
+    color: var(--azulOscuro);
+}
+.retiro__saldo {
+    font-size: 3rem;
+    color: var(--colorSecundario);
+}
+.retiro__mensaje {
+    font-size: 2rem;
+}
+.retiro__regresar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Seccion MOVIMIENTOS */
+.contenedor__movimientos {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    overflow: hidden;
+}
+.movimientos__titulo {
+    display: flex;
+    align-items: center;
+}
+.movimientos__titulo p {
+    background-color: var(--blanco);
+    display: inline;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: .1rem;
+    color: var(--colorSecundario);
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    margin-left: -.5rem;
+}
+.movimientos__contenido {
+    padding: 2rem;
+    overflow: hidden;
+}
+.movimientos__reporte {
+    height: 100%;
+    background-color: var(--blanco);
+    border-radius: .5rem;
+    padding: 2rem;
+    overflow: auto;
+}
+.movimientos__reporte table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    font-size: 1.5rem;
+    width: 100%;
+}
+.movimientos__reporte table td,
+.movimientos__reporte table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.movimientos__reporte table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.movimientos__reporte table tr:hover {
+    background-color: #ddd;
+}
+.movimientos__reporte table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--colorPrincipal);
+    color: white;
+}
+.movimientos__regresar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

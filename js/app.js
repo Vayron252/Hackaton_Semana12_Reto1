@@ -3,33 +3,49 @@ let cuentas = [
     {nombre: 'Mali', saldo: 200, dni: '58668985', password: 'helloworld' },
     {nombre: 'Gera', saldo: 290, dni: '74859655', password: 'l33t' },
     {nombre: 'Maui', saldo: 67, dni: '45789656', password: '123' },
-    {nombre: 'Marco', saldo: 280, dni: '73124178', password: '9999' }
+    {nombre: 'Marco', saldo: 280, dni: '77335566', password: '11' }
 ];
+//Creamos un arreglo para los movimientos
+let movimientos = [
+    {dni: '77335566', monto: 20, tipo: 'D', fecha: '25/08/2023 08:05:00'},
+    {dni: '77335566', monto: 40, tipo: 'R', fecha: '28/09/2023 10:50:23'}
+]
 //Creamos variable global
 let usuarioLogueado = null;
 
 //Inicializamos los controles
 let btnIniciarSesion = document.querySelector('.login__iniciarsesion');
-let seccionLogin = document.querySelector('.seccion__login');
-let seccionMenu = document.querySelector('.seccion__menu');
 let btnCerrarSesion = document.getElementById('btnCerrarSesion');
-let seccionConsSaldo = document.querySelector('.seccion__consultasaldo');
 let btnOpcConsSaldo = document.querySelector('.opcion__consultasaldo');
-let seccionDeposito = document.querySelector('.seccion__deposito');
 let btnOpcDeposito = document.querySelector('.opcion__deposito');
-let seccionRetiro = document.querySelector('.seccion__retiro');
 let btnOpcRetiro = document.querySelector('.opcion__retiro');
+let btnOpcMovimientos = document.querySelector('.opcion__movimientos');
 let btnDepositar = document.getElementById('btnDepositar');
-
-// let btnRetirar = document.getElementById('btnRetirar');
+let btnRetirar = document.getElementById('btnRetirar');
 
 //Funciones
+const cambiarPantalla = (pnt_ocultar, pnt_mostrar) => {
+    pnt_ocultar.classList.add('ocultar');
+    pnt_mostrar.classList.remove('ocultar');
+}
+
+const mostrarMensaje = (elemento, mensaje) => {
+    elemento.textContent = mensaje;
+    elemento.classList.remove('ocultar');
+    setTimeout(() => {
+        elemento.classList.add('ocultar');
+    }, 2000);
+}
+
 const iniciarSesion = () => {
     let nrodni = document.getElementById('txtNroDNI');
     let contrasenia = document.getElementById('txtContrasenia');
 
     if (nrodni.value == '' || contrasenia.value == '') {
-        alert('Los campos dni o contraseña no pueden estar vacíos.!!!')
+        mostrarMensaje(document.querySelector('.login__mensaje'), 'Los campos dni o contraseña no pueden estar vacíos.');
+        nrodni.value = '';
+        contrasenia.value = '';
+        nrodni.focus();
         return;
     }
 
@@ -38,7 +54,7 @@ const iniciarSesion = () => {
     });
 
     if (usuarioLogueado == undefined) {
-        alert('No se encontró el usuario con las credenciales ingresadas.!!!');
+        mostrarMensaje(document.querySelector('.login__mensaje'), 'No se encontró el usuario con las credenciales ingresadas.');
         nrodni.value = '';
         contrasenia.value = '';
         nrodni.focus();
@@ -47,7 +63,7 @@ const iniciarSesion = () => {
 
     nrodni.value = '';
     contrasenia.value = '';
-    seccionLogin.classList.add('ocultar');
+    cambiarPantalla(document.querySelector('.seccion__login'), document.querySelector('.seccion__menu'));
     mostrarMenuOpciones();
 };
 
@@ -57,44 +73,69 @@ const cerrarSesion = () => {
     });
     cuentas[posicion] = usuarioLogueado;
     usuarioLogueado = null;
-    seccionMenu.classList.add('ocultar');
-    seccionLogin.classList.remove('ocultar');
+    cambiarPantalla(document.querySelector('.seccion__menu'), document.querySelector('.seccion__login'));
     document.getElementById('txtNroDNI').focus();
 }
 
 const mostrarMenuOpciones = () => {
-    seccionMenu.classList.remove('ocultar');
-    //Mostramos el nombre de la persona logueada
     let nombreUsuario = document.querySelector('.menu__nombreusuario');
     nombreUsuario.textContent = `Bienvenido, ${usuarioLogueado.nombre}`;
 }
 
 const mostrarMenuConsSaldo = () => {
-    seccionMenu.classList.add('ocultar');
-    seccionConsSaldo.classList.remove('ocultar');
+    let seccionConsSaldo = document.querySelector('.seccion__consultasaldo');
+    cambiarPantalla(document.querySelector('.seccion__menu'), seccionConsSaldo);
     seccionConsSaldo.querySelector('.conssaldo_saldo').textContent = `$${usuarioLogueado.saldo}`;
 }
 
 const mostrarMenuDeposito = () => {
-    seccionMenu.classList.add('ocultar');
-    seccionDeposito.classList.remove('ocultar');
+    cambiarPantalla(document.querySelector('.seccion__menu'), document.querySelector('.seccion__deposito'));
+    let txtMontoDeposito = document.getElementById('txtMontoDeposito');
+    txtMontoDeposito.value = '';
+    document.querySelector('.deposito__saldo').textContent = '';
+    txtMontoDeposito.focus();
 }
 
 const mostrarMenuRetiro = () => {
-    seccionMenu.classList.add('ocultar');
-    seccionRetiro.classList.remove('ocultar');
+    cambiarPantalla(document.querySelector('.seccion__menu'), document.querySelector('.seccion__retiro'));
+    let txtMontoRetiro = document.getElementById('txtMontoRetiro');
+    txtMontoRetiro.value = '';
+    document.querySelector('.retiro__saldo').textContent = '';
+    txtMontoRetiro.focus();
+}
+
+const mostrarMenuMovimientos = () => {
+    cambiarPantalla(document.querySelector('.seccion__menu'), document.querySelector('.seccion__movimientos'));
+    //Seleccionamos los movimientos solamente de la cuenta del usuario logueado
+    const listMovimientos = movimientos.filter((mov) => {
+        return mov.dni == usuarioLogueado.dni;
+    });
+    //Creamos las filas para la tabla
+    let tabla = document.getElementById('tbl_movimientos');
+    listMovimientos.forEach(mov => {
+        let fila = document.createElement('tr');
+        let celda1 = document.createElement('td');
+        celda.textContent = mov.fecha;
+        let celda2 = document.createElement('td');
+        celda.textContent = mov.monto;
+        let celda3 = document.createElement('td');
+        celda.textContent = mov.tipo;
+        fila.appendChild(celda1);
+        fila.appendChild(celda2);
+        fila.appendChild(celda3);
+    });
 }
 
 const regresarMenu = (e) => {
-    e.parentNode.parentNode.parentNode.classList.add('ocultar');
-    seccionMenu.classList.remove('ocultar');
+    cambiarPantalla(e.parentNode.parentNode.parentNode, document.querySelector('.seccion__menu'));
 }
 
 const realizarDeposito = () => {
     let txtMontoDeposito = document.getElementById('txtMontoDeposito');
-    let nuevoSaldo = usuarioLogueado.saldo + parseFloat(txtMontoDeposito.value);
+    let nuevoSaldo = parseFloat(usuarioLogueado.saldo) + parseFloat(txtMontoDeposito.value);
+    nuevoSaldo = parseFloat(nuevoSaldo).toFixed(2);
     if (nuevoSaldo > 990) {
-        console.log('Depósito excede al límite permitido en su cuenta!!!');
+        mostrarMensaje(document.querySelector('.deposito__mensaje'), 'Depósito excede al límite permitido en su cuenta.');
         return;
     }
     usuarioLogueado.saldo = nuevoSaldo;
@@ -103,13 +144,14 @@ const realizarDeposito = () => {
 
 const realizarRetiro = () => {
     let txtMontoRetiro = document.getElementById('txtMontoRetiro');
-    let nuevoSaldo = usuarioLogueado.saldo - parseFloat(txtMontoRetiro.value);
+    let nuevoSaldo = parseFloat(usuarioLogueado.saldo) - parseFloat(txtMontoRetiro.value);
+    nuevoSaldo = parseFloat(nuevoSaldo).toFixed(2);
     if (nuevoSaldo < 10) {
-        console.log('Retiro excede al límite permitido en su cuenta!!!');
+        mostrarMensaje(document.querySelector('.retiro__mensaje'), 'Retiro excede al límite permitido en su cuenta.');
         return;
     }
     usuarioLogueado.saldo = nuevoSaldo;
-    console.log(`Nuevo Saldo: $${nuevoSaldo}`);
+    document.querySelector('.retiro__saldo').textContent = `Saldo Actual $${nuevoSaldo}`;
 }
 
 //Eventos
@@ -133,10 +175,14 @@ btnOpcRetiro.addEventListener('click', () => {
     mostrarMenuRetiro();
 });
 
+btnOpcMovimientos.addEventListener('click', () => {
+    mostrarMenuMovimientos();
+});
+
 btnDepositar.addEventListener('click', () => {
     realizarDeposito();
 });
 
-// btnRetirar.addEventListener('click', () => {
-//     realizarRetiro();
-// });
+btnRetirar.addEventListener('click', () => {
+    realizarRetiro();
+});

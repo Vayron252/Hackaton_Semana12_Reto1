@@ -26,6 +26,7 @@
                         <label for="txtContrasenia">Ingrese su contraseña:</label>
                         <input type="password" id="txtContrasenia" placeholder="Ingrese su contraseña" autocomplete="off">
                     </div>
+                    <p class="login__mensaje mensaje ocultar"></p>
                     <div class="login__datos">
                         <button id="btnLogin" class="login__iniciarsesion btn">Ingresar <i class="fas fa-right-to-bracket"></i></button>
                     </div>
@@ -48,6 +49,10 @@
                         <button class="opcion__retiro"></button>
                         <p>Retiro</p>
                     </div>
+                    <div class="opcion__menu opcion__menu--reverso">
+                        <button class="opcion__movimientos"></button>
+                        <p>Movimientos</p>
+                    </div>
                 </div>
                 <div class="menu__cerrarsesion">
                     <button class="cerrar_sesion btn" id="btnCerrarSesion">Salir <i class="fas fa-right-to-bracket"></i></button>
@@ -56,6 +61,9 @@
         </section>
         <section class="seccion__consultasaldo h-100 ocultar">
             <div class="contenedor__consultasaldo">
+                <div class="conssaldo__titulo">
+                    <p>Consulta de Saldo</p>
+                </div>
                 <div class="conssaldo__contenido">
                     <p class="conssaldo__rotulo">Su saldo actual a la fecha es:</p>
                     <div class="conssaldo__contenedor">
@@ -69,13 +77,17 @@
         </section>
         <section class="seccion__deposito h-100 ocultar">
             <div class="contenedor__deposito">
+                <div class="deposito__titulo">
+                    <p>Depósito</p>
+                </div>
                 <div class="deposito__contenido">
                     <div class="deposito__accion">
+                        <label for="txtMontoDeposito" class="deposito__rotulo">Ingrese monto a depositar:</label>
                         <div class="deposito__ingreso">
-                            <label for="txtMontoDeposito" class="deposito__rotulo">Ingrese monto a depositar:</label>
                             <input type="number" id="txtMontoDeposito" placeholder="Ingrese monto" class="deposito__monto">
+                            <button id="btnDepositar" class="deposito__boton btn">Depositar</button>
                         </div>
-                        <button id="btnDepositar" class="deposito__boton btn">Depositar</button>
+                        <p class="deposito__mensaje mensaje ocultar"></p>
                     </div>
                     <h3 class="deposito__saldo"></h3>
                 </div>
@@ -84,13 +96,60 @@
                 </div>
             </div>
         </section>
-        <section class="seccion__retiro ocultar">
-            <div class="opcion-retiro">
-                <label for="txtMontoRetiro">Ingrese monto a retirar:</label>
-                <input type="number" id="txtMontoRetiro" placeholder="Ingrese monto a retirar">
-                <button id="btnRetirar">Retirar</button>
-                <h3 class="muestra_saldo"></h3>
-                <button class="regresar-menu" onclick="regresarMenu(this);">Regresar</button>
+        <section class="seccion__retiro h-100 ocultar">
+            <div class="contenedor__retiro">
+                <div class="retiro__titulo">
+                    <p>Retiro</p>
+                </div>
+                <div class="retiro__contenido">
+                    <div class="retiro__accion">
+                        <label for="txtMontoRetiro" class="retiro__rotulo">Ingrese monto a retirar:</label>
+                        <div class="retiro__egreso">
+                            <input type="number" id="txtMontoRetiro" placeholder="Ingrese monto" class="retiro__monto">
+                            <button id="btnRetirar" class="retiro__boton btn">Retirar</button>
+                        </div>
+                        <p class="retiro__mensaje mensaje ocultar"></p>
+                    </div>
+                    <h3 class="retiro__saldo"></h3>
+                </div>
+                <div class="retiro__regresar">
+                    <button class="regresar-menu btn" onclick="regresarMenu(this);"><i class="fas fa-chevron-left"></i> Regresar</button>
+                </div>
+            </div>
+        </section>
+        <section class="seccion__movimientos h-100 ocultar">
+            <div class="contenedor__movimientos">
+                <div class="movimientos__titulo">
+                    <p>Movimientos</p>
+                </div>
+                <div class="movimientos__contenido">
+                    <div class="movimientos__reporte">
+                        <table id="tbl_movimientos">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Monto</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>25/08/2023 08:15:00</td>
+                                    <td>-20.00</td>
+                                    <td>Retiro</td>
+                                </tr>
+                                <tr>
+                                    <td>29/10/2023 09:10:00</td>
+                                    <td>60.00</td>
+                                    <td>Depósito</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="movimientos__regresar">
+                    <button class="regresar-menu btn" onclick="regresarMenu(this);"><i class="fas fa-chevron-left"></i> Regresar</button>
+                </div>
             </div>
         </section>
     </main>
