@@ -3,6 +3,7 @@
     --colorSecundario: #0060AB;
     --blanco: #FFFFFF;
     --azulOscuro: #0f436b;
+    --rojoIntenso: red;
 }
 
 /* Globales */
@@ -53,6 +54,12 @@ body {
 }
 .ocultar {
     display: none;
+}
+.positivo {
+    color: var(--azulOscuro);
+}
+.negativo {
+    color: red;
 }
 
 /* Contenido Principal */
@@ -419,20 +426,27 @@ body {
 .movimientos__reporte table td,
 .movimientos__reporte table th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
 }
 .movimientos__reporte table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-.movimientos__reporte table tr:hover {
+/* .movimientos__reporte table tr:hover {
     background-color: #ddd;
-}
+} */
 .movimientos__reporte table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color: var(--colorPrincipal);
-    color: white;
+    color: var(--blanco);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.movimientos__reporte p {
+    font-size: 2rem;
+    color: var(--colorSecundario);
+    text-align: center;
 }
 .movimientos__regresar {
     display: flex;

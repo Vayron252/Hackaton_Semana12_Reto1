@@ -3,13 +3,16 @@ let cuentas = [
     {nombre: 'Mali', saldo: 200, dni: '58668985', password: 'helloworld' },
     {nombre: 'Gera', saldo: 290, dni: '74859655', password: 'l33t' },
     {nombre: 'Maui', saldo: 67, dni: '45789656', password: '123' },
-    {nombre: 'Marco', saldo: 280, dni: '77335566', password: '11' }
+    {nombre: 'Luis', saldo: 0, dni: '75956555', password: '1235' },
+    {nombre: 'Marco', saldo: 280, dni: '77335566', password: '111' }
 ];
 //Creamos un arreglo para los movimientos
 let movimientos = [
-    {dni: '77335566', monto: 20, tipo: 'D', fecha: '25/08/2023 08:05:00'},
-    {dni: '77335566', monto: 40, tipo: 'R', fecha: '28/09/2023 10:50:23'}
-]
+    {dni: '58668985', monto: '$200.00', tipo: 'Depósito', fecha: '25/08/2023 08:05:00'},
+    {dni: '74859655', monto: '$290.00', tipo: 'Depósito', fecha: '27/09/2023 11:50:23'},
+    {dni: '45789656', monto: '$67.00', tipo: 'Depósito', fecha: '02/09/2023 13:52:00'},
+    {dni: '77335566', monto: '$280.00', tipo: 'Depósito', fecha: '03/09/2023 15:39:23'}
+];
 //Creamos variable global
 let usuarioLogueado = null;
 
@@ -104,52 +107,74 @@ const mostrarMenuRetiro = () => {
     txtMontoRetiro.focus();
 }
 
+const crearCelda = (contenido) => {
+    let celda = document.createElement('td');
+    celda.textContent = contenido;
+    return celda;
+}
+
 const mostrarMenuMovimientos = () => {
     cambiarPantalla(document.querySelector('.seccion__menu'), document.querySelector('.seccion__movimientos'));
     //Seleccionamos los movimientos solamente de la cuenta del usuario logueado
     const listMovimientos = movimientos.filter((mov) => {
         return mov.dni == usuarioLogueado.dni;
     });
-    //Creamos las filas para la tabla
     let tabla = document.getElementById('tbl_movimientos');
-    listMovimientos.forEach(mov => {
-        let fila = document.createElement('tr');
-        let celda1 = document.createElement('td');
-        celda.textContent = mov.fecha;
-        let celda2 = document.createElement('td');
-        celda.textContent = mov.monto;
-        let celda3 = document.createElement('td');
-        celda.textContent = mov.tipo;
-        fila.appendChild(celda1);
-        fila.appendChild(celda2);
-        fila.appendChild(celda3);
-    });
+    if (listMovimientos.length > 0) {
+        document.querySelector('.movimientos__reporte').querySelector('p').classList.add('ocultar');
+        //Creamos las filas para la tabla
+        tabla.classList.remove('ocultar');
+        let cuerpoTabla = tabla.querySelector('tbody');
+        cuerpoTabla.innerHTML = '';
+        listMovimientos.forEach(mov => {
+            let fila = document.createElement('tr');
+            fila.classList.add(mov.tipo=='Retiro'?'negativo':'positivo');
+            fila.appendChild(crearCelda(mov.fecha));
+            fila.appendChild(crearCelda(mov.monto));
+            fila.appendChild(crearCelda(mov.tipo));
+            cuerpoTabla.appendChild(fila);
+        });
+    } else {
+        tabla.classList.add('ocultar');
+        document.querySelector('.movimientos__reporte').querySelector('p').classList.remove('ocultar');
+    }
 }
 
 const regresarMenu = (e) => {
     cambiarPantalla(e.parentNode.parentNode.parentNode, document.querySelector('.seccion__menu'));
 }
 
+const obtenerFechaHora = () => {
+    const reloj = new Date();
+    return reloj.getDate() + "/" + (reloj.getMonth() + 1).toString().padStart(2, '0') + "/" + reloj.getFullYear() + " " + reloj.toLocaleTimeString();
+}
+
 const realizarDeposito = () => {
     let txtMontoDeposito = document.getElementById('txtMontoDeposito');
-    let nuevoSaldo = parseFloat(usuarioLogueado.saldo) + parseFloat(txtMontoDeposito.value);
+    let montoDeposito = parseFloat(txtMontoDeposito.value).toFixed(2);
+    let nuevoSaldo = parseFloat(usuarioLogueado.saldo) + parseFloat(montoDeposito);
     nuevoSaldo = parseFloat(nuevoSaldo).toFixed(2);
     if (nuevoSaldo > 990) {
         mostrarMensaje(document.querySelector('.deposito__mensaje'), 'Depósito excede al límite permitido en su cuenta.');
         return;
     }
+    let Movimiento = {dni: usuarioLogueado.dni, monto: `$${montoDeposito}`, tipo: 'Depósito', fecha: obtenerFechaHora()};
+    movimientos.push(Movimiento);
     usuarioLogueado.saldo = nuevoSaldo;
     document.querySelector('.deposito__saldo').textContent = `Saldo Actual $${nuevoSaldo}`;
 }
 
 const realizarRetiro = () => {
     let txtMontoRetiro = document.getElementById('txtMontoRetiro');
-    let nuevoSaldo = parseFloat(usuarioLogueado.saldo) - parseFloat(txtMontoRetiro.value);
+    let montoRetiro = parseFloat(txtMontoRetiro.value).toFixed(2);
+    let nuevoSaldo = parseFloat(usuarioLogueado.saldo) - parseFloat(montoRetiro);
     nuevoSaldo = parseFloat(nuevoSaldo).toFixed(2);
     if (nuevoSaldo < 10) {
         mostrarMensaje(document.querySelector('.retiro__mensaje'), 'Retiro excede al límite permitido en su cuenta.');
         return;
     }
+    let Movimiento = {dni: usuarioLogueado.dni, monto: `-$${montoRetiro}`, tipo: 'Retiro', fecha: obtenerFechaHora()};
+    movimientos.push(Movimiento);
     usuarioLogueado.saldo = nuevoSaldo;
     document.querySelector('.retiro__saldo').textContent = `Saldo Actual $${nuevoSaldo}`;
 }
